@@ -22,6 +22,7 @@ build/
 venv/
 env/
 ENV/
+doctoragent/          # local venv — never commit
 
 # ── Data / DB ──────────────────────────────────────────────────────────────────
 data/memory.sqlite
