@@ -1,20 +1,16 @@
 services:
-  # ── Main Web Service ─────────────────────────────────────────────────────────
   - type: web
     name: equis-agent
     env: docker
-    plan: free                    # Free tier: 512 MB RAM, spins down after 15 min idle
+    plan: free
     dockerfilePath: Dockerfile
     autoDeploy: true
     healthCheckPath: /health
     envVars:
-      # ── LLM: Groq ──────────────────────────────────────────────────────────
       - key: GROQ_API_KEY
-        sync: false               # Set manually in Render dashboard (never in git)
+        sync: false
       - key: GROQ_MODEL_ID
         value: openai/gpt-oss-20b
-
-      # ── VLM + Embeddings: Gemini ────────────────────────────────────────────
       - key: GEMINI_API_KEY
         sync: false
       - key: GEMINI_LLM_MODEL
@@ -23,32 +19,22 @@ services:
         value: gemini-3.5-flash
       - key: GEMINI_EMBED_MODEL
         value: models/gemini-embedding-001
-
-      # ── Vector DB: Pinecone ─────────────────────────────────────────────────
       - key: PINECONE_API_KEY
         sync: false
       - key: PINECONE_INDEX_NAME
         value: gameengine-doctor
-
-      # ── Web Search: Tavily ──────────────────────────────────────────────────
       - key: TAVILY_API_KEY
         sync: false
-
-      # ── Cache: Upstash Redis ────────────────────────────────────────────────
       - key: UPSTASH_REDIS_REST_URL
         sync: false
       - key: UPSTASH_REDIS_REST_TOKEN
         sync: false
-
-      # ── Observability: LangSmith ────────────────────────────────────────────
       - key: LANGCHAIN_TRACING_V2
         value: "true"
       - key: LANGCHAIN_API_KEY
         sync: false
       - key: LANGCHAIN_PROJECT
         value: gameengine-doctor
-
-      # ── App Config ──────────────────────────────────────────────────────────
       - key: DOCS_PATH
         value: ./data/docs
       - key: TOP_K
@@ -56,15 +42,12 @@ services:
       - key: CACHE_TTL_SECONDS
         value: "3600"
 
-  # ── Cron Job: Daily Document Re-Ingestion ───────────────────────────────────
-  # Runs every day at 02:00 UTC — re-indexes game engine docs into Pinecone.
-  # Free tier cron jobs run up to 1 hour per invocation.
   - type: cron
     name: equis-daily-ingest
     env: docker
     plan: free
     dockerfilePath: Dockerfile
-    schedule: "0 2 * * *"        # Daily at 02:00 UTC  (use crontab.guru to verify)
+    schedule: "0 2 * * *"
     command: python scripts/ingest.py
     envVars:
       - key: GEMINI_API_KEY
