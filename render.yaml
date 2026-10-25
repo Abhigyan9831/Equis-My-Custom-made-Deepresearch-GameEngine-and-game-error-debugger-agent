@@ -48,7 +48,7 @@ services:
     plan: free
     dockerfilePath: Dockerfile
     schedule: "0 2 * * *"
-    command: python scripts/ingest.py
+    startCommand: python scripts/ingest.py
     envVars:
       - key: GEMINI_API_KEY
         sync: false
