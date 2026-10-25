@@ -1,0 +1,40 @@
+# API & Server
+fastapi>=0.111.0
+uvicorn[standard]>=0.30.0
+python-multipart>=0.0.9
+
+# LangChain — pinned together to avoid conflicts
+langchain>=0.3.0
+langchain-community>=0.3.0
+langchain-groq>=0.2.0
+langchain-google-genai>=2.0.0
+langchain-pinecone>=0.2.0
+langgraph>=0.2.0
+
+# Web search
+tavily-python>=0.5.0
+
+# Doc loading
+html2text
+pypdf>=4.2.0
+beautifulsoup4>=4.12.3
+requests>=2.32.3
+
+# Vector DB
+pinecone>=5.0.0
+
+# Cache
+upstash-redis>=1.1.0
+
+# Observability
+langsmith>=0.1.83
+python-json-logger>=2.0.7
+
+# Config & validation
+pydantic>=2.7.0
+pydantic-settings>=2.3.0
+
+# Testing
+pytest>=8.2.0
+pytest-asyncio>=0.23.0
+httpx>=0.27.0

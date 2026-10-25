@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: equis-agent
+    env: docker
+    plan: free
+    dockerfilePath: Dockerfile
+    # Render injects the $PORT env var; our Dockerfile respects it.
+    envVars:
+      # Fill these with your secret values in the Render dashboard.
+      GROQ_API_KEY: "${GROQ_API_KEY}"
+      GEMINI_API_KEY: "${GEMINI_API_KEY}"
+      UPSTASH_REDIS_URL: "${UPSTASH_REDIS_URL}"
+      LANGSMITH_API_KEY: "${LANGSMITH_API_KEY}"
+      # Add any other required keys.
+    autoDeploy: true
+    healthCheckPath: /health
+    # Optional: scaling settings for free tier.
+    # cpuFreedLimit: 1000m
+    # memoryFreedMb: 512
