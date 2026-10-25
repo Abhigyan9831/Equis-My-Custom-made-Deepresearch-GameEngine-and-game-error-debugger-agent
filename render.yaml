@@ -45,10 +45,9 @@ services:
   - type: cron
     name: equis-daily-ingest
     runtime: docker
-    plan: free
     dockerfilePath: Dockerfile
     schedule: "0 2 * * *"
-    startCommand: python scripts/ingest.py
+    dockerCommand: python scripts/ingest.py
     envVars:
       - key: GEMINI_API_KEY
         sync: false
